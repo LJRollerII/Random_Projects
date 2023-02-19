@@ -1,0 +1,45 @@
+---
+  title: "Medical Charge Predictions"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Libraries
+```
+
+#Import data
+```{r}
+df = read.csv('insurance.csv', header=TRUE)
+num_cols <- unlist(lapply(df, is.numeric))  
+plot(df[,num_cols])
+```
+
+
+
+```{r}
+round(cor(df[,num_cols]), 2)
+```
+
+
+
+```{r}
+smoker = as.factor(df$smoker)
+sex = as.factor(df$sex)
+region = as.factor(df$region)
+
+boxplot(df$charges ~ smoker, main ='Smoker')
+boxplot(df$charges ~ sex, main = 'sex')
+boxplot(df$charges ~ region, main = 'region')
+```
+
+
+
+```{r}
+model1 = lm(charges ~., data = df)
+```
+
+
+
+```{r}
+summary(model1)
+```
